@@ -32,6 +32,23 @@
 $ npm install
 ```
 
+## Environment variables
+
+To run this project, you need to rename the `.env.sample` to `.env.development.local` file in the root directory and use any appropriate values for the environment variables. Here is an example of the `.env.development.local` file:
+
+```
+# jwt
+JWT_SECRET=oOG6DEucOl+qK7V164569DXdEBl7dPLUkEu46JAMjJu57nk+Lt/c8Hnoq6tBg4TpyqUegqF/MOBWX5+cm9/y5Q==
+JWT_EXPIRATION_TIME=30m # 30min
+REFRESH_TOKEN_EXPIRATION_TIME=20d
+
+# husky hook
+HUSKY_SKIP_HOOK=false
+
+# prisma
+DATABASE_URL=postgresql://user:12345@localhost:5432
+```
+
 ## Running the database
 
 Running the command below will spun up a postgresql database container.
