@@ -1,0 +1,24 @@
+.git
+.gitignore
+.cache
+
+# Ignore any file or directory named.env
+*.md
+
+# Ignore any file or directory named node_modules
+node_modules
+dist
+
+# Ignore any directory named temp
+**/temp
+
+.vscode
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+
