@@ -20,7 +20,7 @@ export class AuthService {
 
   private readonly saltRounds = 10;
   private readonly JWT_EXPIRATION_TIME =
-    process.env.JWT_EXPIRATION_TIME ?? 3600; // default to 1 hour
+    process.env.JWT_EXPIRATION_TIME ?? '1h'; // default to 1 hour
   private readonly REFRESH_TOKEN_EXPIRATION_TIME =
     process.env.REFRESH_TOKEN_EXPIRATION_TIME ?? '30d'; // default to 30 days
 
@@ -36,6 +36,7 @@ export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
   public async login(userRequestDto: UserRequestDto) {
+    this.logger.log(`Login with email ${userRequestDto.email}`);
     const user = await this.validateUser(userRequestDto);
 
     const payload = {
@@ -45,12 +46,12 @@ export class AuthService {
     };
 
     const accessToken = this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET,
+      secret: 'secret', //process.env.JWT_SECRET,
       expiresIn: this.JWT_EXPIRATION_TIME,
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET,
+      secret: 'secret', //process.env.JWT_SECRET,
       expiresIn: this.REFRESH_TOKEN_EXPIRATION_TIME,
     });
 

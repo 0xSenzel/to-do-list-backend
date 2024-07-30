@@ -32,6 +32,22 @@
 $ npm install
 ```
 
+## Running the database
+
+Running the command below will spun up a postgresql database container.
+
+```bash
+docker compose up -d
+```
+
+## Running migrations
+
+Running the command below will run the prisma migration to create the tables in the database.
+
+```bash
+npm run prisma:migrate <INSERT_MIGRATION_NAME>
+```
+
 ## Running the app
 
 ```bash
@@ -45,36 +61,6 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Swagger
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Migration
-
-```bash
-# run migration with prisma
-npx prisma migrate dev --name "INPUT_MIGRATION_NAME"
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+To access the swagger documentation, go to `http://localhost:3111/docs` in your browser.

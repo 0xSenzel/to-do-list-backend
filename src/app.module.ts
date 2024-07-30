@@ -19,7 +19,7 @@ import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
-    ClientsModule.register([
+    /* ClientsModule.register([
       {
         name: 'AUTH_MICROSERVICE',
         transport: Transport.KAFKA,
@@ -33,7 +33,7 @@ import { TaskModule } from './task/task.module';
           },
         },
       },
-    ]),
+    ]), */
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV}.local`,
       isGlobal: true,
@@ -49,7 +49,12 @@ import { TaskModule } from './task/task.module';
     UserModule,
     TaskModule,
   ],
-  controllers: [PrismaController, AuthController, UserController, TaskController],
+  controllers: [
+    PrismaController,
+    AuthController,
+    UserController,
+    TaskController,
+  ],
   providers: [PrismaService, AuthService, UserService, TaskService],
 })
 export class AppModule {}
