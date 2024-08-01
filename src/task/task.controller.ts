@@ -33,7 +33,7 @@ export class TaskController {
     return await this.taskService.createTask(taskRequestDto, req.user.id);
   }
 
-  // use param
+  // TODO: update to PATCH follow RESTful standard
   @Put()
   private async updateTask(@Body() taskRequestDto: TaskRequestDto, @Req() req) {
     return await this.taskService.updateTask(taskRequestDto, req.user.id);
@@ -41,12 +41,11 @@ export class TaskController {
 
   @Get('all')
   @ApiOperation({ summary: 'Get all tasks for the authenticated user' })
-  private async getAllTasks(
-    @Req() req,
-    @Query('take') take: number,
-    @Query('skip') skip: number,
-  ) {
-    return await this.taskService.getAllTaskByUserId(req.user.id, take, skip);
+  private async getAllTasks(@Req() req, @Query() paginationDto: PaginationDto) {
+    return await this.taskService.getAllTaskByUserId(
+      req.user.id,
+      paginationDto,
+    );
   }
 
   @Get(':id')

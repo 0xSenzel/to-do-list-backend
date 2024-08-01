@@ -59,8 +59,7 @@ export class TaskService {
 
   public async getAllTaskByUserId(
     userId: string,
-    take: number,
-    skip: number,
+    paginationDto: PaginationDto,
   ): Promise<TaskResponseDto[]> {
     this.logger.log(`Getting all tasks for user with id: ${userId}`);
 
@@ -71,8 +70,8 @@ export class TaskService {
       orderBy: {
         createdAt: 'desc',
       },
-      take: +take,
-      skip: +skip,
+      take: +paginationDto.take,
+      skip: +paginationDto.skip,
     });
 
     this.logger.log(`Found ${tasks.length} tasks for user with id: ${userId}`);
