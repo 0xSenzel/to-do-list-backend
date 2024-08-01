@@ -6,13 +6,15 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { TaskRequestDto } from './dtos/task.request.dto';
 import { TaskService } from './task.service';
-import { JwtAuthGuard } from 'src/common/configs/guards/jwt.auth.guard';
+import { JwtAuthGuard } from 'src/common/guards/jwt.auth.guard';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { PaginationDto } from './dtos/pagination.request.dto';
 
 @Controller('task')
 @UseGuards(JwtAuthGuard)
@@ -21,10 +23,11 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post('create')
-  private async createTask(@Body() taskRequestDto: TaskRequestDto, @Req() req) {
+  public async createTask(@Body() taskRequestDto: TaskRequestDto, @Req() req) {
     return await this.taskService.createTask(taskRequestDto, req.user.id);
   }
 
+  // use param
   @Put('update')
   private async updateTask(@Body() taskRequestDto: TaskRequestDto, @Req() req) {
     return await this.taskService.updateTask(taskRequestDto, req.user.id);
@@ -32,8 +35,12 @@ export class TaskController {
 
   @Get('all')
   @ApiOperation({ summary: 'Get all tasks for the authenticated user' })
-  private async getAllTasks(@Req() req) {
-    return await this.taskService.getAllTaskByUserId(req.user.id);
+  private async getAllTasks(
+    @Req() req,
+    @Query('take') take: number,
+    @Query('skip') skip: number,
+  ) {
+    return await this.taskService.getAllTaskByUserId(req.user.id, take, skip);
   }
 
   @Get(':id')
