@@ -19,7 +19,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { PaginationDto } from './dtos/pagination.request.dto';
+import { PaginationDto } from '../common/dtos/pagination.request.dto';
 
 @Controller('task')
 @UseGuards(JwtAuthGuard)

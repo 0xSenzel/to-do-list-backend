@@ -5,6 +5,7 @@ import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/core';
 import { TaskEntity } from './entities/task.entity';
 import { TaskResponseDto } from './dtos/task.response.dto';
+import { PaginationDto } from '../common/dtos/pagination.request.dto';
 
 @Injectable()
 export class TaskService {
@@ -56,7 +57,11 @@ export class TaskService {
     return this.mapper.map(task, TaskEntity, TaskResponseDto);
   }
 
-  public async getAllTaskByUserId(userId: string): Promise<TaskResponseDto[]> {
+  public async getAllTaskByUserId(
+    userId: string,
+    take: number,
+    skip: number,
+  ): Promise<TaskResponseDto[]> {
     this.logger.log(`Getting all tasks for user with id: ${userId}`);
 
     const tasks = await this.prismaService.task.findMany({
@@ -66,6 +71,8 @@ export class TaskService {
       orderBy: {
         createdAt: 'desc',
       },
+      take: +take,
+      skip: +skip,
     });
 
     this.logger.log(`Found ${tasks.length} tasks for user with id: ${userId}`);
