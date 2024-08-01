@@ -28,13 +28,13 @@ import { PaginationDto } from '../common/dtos/pagination.request.dto';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Post('create')
+  @Post()
   public async createTask(@Body() taskRequestDto: TaskRequestDto, @Req() req) {
     return await this.taskService.createTask(taskRequestDto, req.user.id);
   }
 
   // use param
-  @Put('update')
+  @Put()
   private async updateTask(@Body() taskRequestDto: TaskRequestDto, @Req() req) {
     return await this.taskService.updateTask(taskRequestDto, req.user.id);
   }
